@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Car MPG Comparison Bar Chart with D3.js</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="css/style4.css">
+</head>
+<body>
+  <h1>Comparison chart</h1>
+  <p>In order understand the performance on each car brand, select the car brand the type of vehicle (Gasoline, Diesel, or Electric.)
+  </p>
+  <p>*NOTE: If a car model does not have that model the bars disappear
+  </p>
+</br>
+  <div class = "att">
+  <div>
+    <label for="carMake">Select a Car Make:</label>
+    <select id="carMake"></select>
+
+    <label for="carType">Select a Car Type:</label>
+    <select id="carType"></select>
+  </div>
+  </div>
+  <div class="chart-container">
+    <div id="chart"></div>
+  </div>
+   <p>So, what have we learned click next to find out</p>
+  <a href="barchrt.html"><button class = "b">back</button></a>
+  <a href="finalpage.html"><button  class = "n">next</button></a>
+
+  <script>
+    (async function() {
+      const data = await d3.csv('https://flunky.github.io/cars2017.csv');
+
+      // Extract unique car makes and types
+      const carMakes = Array.from(new Set(data.map(d => d.Make)));
+      const carTypes = Array.from(new Set(data.map(d => d.Fuel)));
+
+      // Populate the car make drop-down
+      const carMakeDropdown = d3.select("#carMake");
+      carMakeDropdown.selectAll("option")
+        .data(carMakes)
+        .enter()
+        .append("option")
+        .text(d => d);
+
+      // Populate the car type drop-down
+      const carTypeDropdown = d3.select("#carType");
+      carTypeDropdown.selectAll("option")
+        .data(carTypes)
+        .enter()
+        .append("option")
+        .text(d => d);
+
+      // Set the default selected car make and type
+      const defaultCarMake = carMakes[0];
+      const defaultCarType = carTypes[0];
+
+      // Filter data based on the selected car make and type
+      function filterData(selectedCarMake, selectedCarType) {
+        return data.filter(d => d.Make === selectedCarMake && d.Fuel === selectedCarType);
+      }
+
+      // Function to create the comparison bar chart
+      function createComparisonBarChart(selectedCarMake, selectedCarType) {
+        const filteredData = filterData(selectedCarMake, selectedCarType);
+
+        // Set up the chart dimensions
+        const margin = { top: 20, right: 30, bottom: 70, left: 100 };
+        const width = 600 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
+
+        // Create scales
+        const xScale = d3.scaleBand()
+          .domain(["AverageHighwayMPG", "AverageCityMPG"])
+          .range([0, width])
+          .padding(0.1);
+
+        const yScale = d3.scaleLinear()
+          .domain([0, d3.max(filteredData, d => Math.max(+d.AverageHighwayMPG, +d.AverageCityMPG))])
+          .nice()
+          .range([height, 0]);
+
+        // Remove any existing chart elements
+        d3.select("#chart").selectAll("*").remove();
+
+        // Create the SVG element
+        const svg = d3.select("#chart")
+          .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        // Create the bars for "AverageHighwayMPG"
+        svg.selectAll(".bar-highway")
+          .data(filteredData)
+          .enter().append("rect")
+          .attr("class", "bar-highway")
+          .attr("x", d => xScale("AverageHighwayMPG"))
+          .attr("y", d => yScale(+d.AverageHighwayMPG))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => height - yScale(+d.AverageHighwayMPG))
+          .attr("fill", "steelblue");
+
+        // Create the bars for "AverageCityMPG"
+        svg.selectAll(".bar-city")
+          .data(filteredData)
+          .enter().append("rect")
+          .attr("class", "bar-city")
+          .attr("x", d => xScale("AverageCityMPG"))
+          .attr("y", d => yScale(+d.AverageCityMPG))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => height - yScale(+d.AverageCityMPG))
+          .attr("fill", "orange");
+
+        // Add axes
+        const xAxis = d3.axisBottom(xScale);
+        const yAxis = d3.axisLeft(yScale);
+
+        svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", `translate(0,${height})`)
+          .call(xAxis);
+
+        svg.append("g")
+          .attr("class", "y axis")
+          .call(yAxis);
+
+        // Add labels
+        svg.append("text")
+          .attr("x", width / 2)
+          .attr("y", height + margin.bottom)
+          .attr("text-anchor", "middle")
+          .text("MPG");
+
+        svg.append("text")
+          .attr("x", -height / 2)
+          .attr("y", -margin.left)
+          .attr("text-anchor", "middle")
+          .attr("transform", "rotate(-90)")
+          .text("Car Model/Type");
+      }
+
+      // Initially create the chart with the default selected car make and type
+      createComparisonBarChart(defaultCarMake, defaultCarType);
+
+      // Event listener for the car make drop-down
+      carMakeDropdown.on("change", function() {
+        const selectedCarMake = d3.select(this).property("value");
+        const selectedCarType = carTypeDropdown.node().value;
+        createComparisonBarChart(selectedCarMake, selectedCarType);
+      });
+
+      // Event listener for the car type drop-down
+      carTypeDropdown.on("change", function() {
+        const selectedCarType = d3.select(this).property("value");
+        const selectedCarMake = carMakeDropdown.node().value;
+        createComparisonBarChart(selectedCarMake, selectedCarType);
+      });
+
+    })();
+  </script>
+</body>
+</html>

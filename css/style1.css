@@ -1,0 +1,65 @@
+html {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: url("../back.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size:100%;
+    overflow: hidden;
+  }
+
+h1{
+    margin-top: 200px;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+h3{
+    text-align: center;
+    color: white;
+    font-weight: lighter;
+    font-size: 100px;
+    font-family: 'Times New Roman', Times, serif
+}
+
+
+p{
+    margin-top: 90px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.exp {
+    margin-top: 20px;
+    font-size: medium;
+    text-align: center;
+    margin-left: 650px;
+    width: 400px;
+    height: 40px ;
+    border-radius: 0.5pc;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(209, 146, 146, 0.668);
+    color: aliceblue;
+    cursor: pointer;
+    border: none;
+    filter: alpha(opacity=500);
+}
+
+.exp:hover{
+    background-color: rgba(201, 109, 109, 0.668);
+    transition: background-color 0.25s;
+}
+
+.exp:active{
+    background-color: rgba(196, 82, 82, 0.668);
+    transition: background-color 0.25s;
+}

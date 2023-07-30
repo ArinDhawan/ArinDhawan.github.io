@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3.js Interactive Visualization</title>
+  <link rel="stylesheet" href="css/style2.css">
+  <style>
+    /* Add your CSS styles here */
+    .tooltip {
+      position: absolute;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Overview of fuel Efficiency among various car brands</h1>
+  <p>In this scatterplot, you can hover over each point and get an overview of each car brand.</br>
+    This inlcudes the brand name, the fuel type, number of engine cylinders, average city </br> 
+    miles per gallon (MPG),and average highway miles per gallon (MPG).</br>
+    </br>
+    As we notice, electric cars tend to sit higher on the scatterplot which means that they tend to perform </br>
+    and give better average highway MPG and average city MPG. But it is a little hard to understand in this plot </br>
+    how each specific brand is comparing. So, click on next to find out. 
+  </p>
+  <div style="display: flex; flex-direction: column; align-items: center;">
+  <svg id="scatterplot" width="800" height="500"></svg>
+  </div>
+</br>
+</br>
+  <a href="index.html"><button class = "b">back</button></a>
+  <a href="barchrt.html"><button class = "n">next</button></a>
+
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    async function loadDataAndCreateVisualization() {
+      // Get Data
+      const data = await d3.csv('https://flunky.github.io/cars2017.csv');
+
+      const margin = { top: 50, right: 50, bottom: 70, left: 70 };
+      const width = 800 - margin.left - margin.right;
+      const height = 500 - margin.top - margin.bottom;
+
+      const svg = d3.select("#scatterplot")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+      data.forEach(d => {
+        d.AverageHighwayMPG = +d.AverageHighwayMPG;
+        d.AverageCityMPG = +d.AverageCityMPG;
+        d.EngineCylinders = +d.EngineCylinders;
+      });
+
+      const xScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.AverageHighwayMPG)])
+        .range([0, width]);
+
+      const yScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.AverageCityMPG)])
+        .range([height, 0]);
+
+      const rScale = d3.scaleSqrt()
+        .domain([0, d3.max(data, d => d.EngineCylinders)])
+        .range([5, 20]);
+
+      const fuelColors = d3.scaleOrdinal()
+        .domain(data.map(d => d.Fuel))
+        .range(d3.schemeCategory10);
+
+      const circles = svg.selectAll("circle")
+        .data(data)
+        .enter()
+        .append("circle")
+        .attr("cx", d => xScale(d.AverageHighwayMPG))
+        .attr("cy", d => yScale(d.AverageCityMPG))
+        .attr("r", d => rScale(d.EngineCylinders))
+        .style("fill", d => fuelColors(d.Fuel))
+        .style("opacity", 0.7);
+
+      const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+      circles.on("mouseover", (event, d) => {
+        tooltip.transition().duration(200).style("opacity", 0.7);
+        tooltip.html(`
+          <strong>${d.Make}</strong><br>
+          Fuel: ${d.Fuel}<br>
+          Engine Cylinders: ${d.EngineCylinders}<br>
+          Avg. Highway MPG: ${d.AverageHighwayMPG}<br>
+          Avg. City MPG: ${d.AverageCityMPG}
+        `)
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY - 30}px`);
+      });
+
+      circles.on("mouseout", () => {
+        tooltip.transition().duration(500).style("opacity", 0);
+      });
+
+      const xAxis = d3.axisBottom(xScale);
+      const yAxis = d3.axisLeft(yScale);
+
+      svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0, ${height})`)
+        .call(xAxis);
+
+      svg.append("g")
+        .attr("class", "y-axis")
+        .call(yAxis);
+
+      svg.append("text")
+        .attr("class", "x-axis-label")
+        .attr("x", width / 2)
+        .attr("y", height + margin.bottom / 2)
+        .style("text-anchor", "middle")
+        .text("Average Highway MPG");
+
+      svg.append("text")
+        .attr("class", "y-axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -height / 2)
+        .attr("y", -margin.left / 2)
+        .style("text-anchor", "middle")
+        .text("Average City MPG");
+    }
+
+    // Load data and create the visualization
+    loadDataAndCreateVisualization();
+  </script>
+  
+</body>
+</html>

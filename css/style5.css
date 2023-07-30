@@ -1,0 +1,50 @@
+html{
+    background-color: azure;
+}
+h1{
+    font-weight: bolder;
+    font-size: 50px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+.b {
+ 
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    width: 100px;
+    height: 40px ;
+    align-items: center;
+    border-radius: 0.5pc;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(186, 112, 112, 0.668);
+    color: rgb(255, 255, 255,0.7);
+    cursor: pointer;
+    border: none;
+    filter: alpha(opacity=500);
+}
+
+.b:hover{
+    background-color: rgba(198, 86, 86, 0.668);
+    transition: background-color 0.25s;
+}
+
+.b:active{
+    background-color: rgba(198, 71, 71, 0.668);
+    transition: background-color 0.25s;
+}
+
+p{
+    font-weight: lighter;
+    font-size: 30px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+a{
+    font-weight: lighter;
+    font-size: 30px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}

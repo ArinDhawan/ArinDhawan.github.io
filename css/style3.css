@@ -1,0 +1,104 @@
+html{
+    background-color: #CFBCDF;
+}
+
+h1{
+    text-align: center;
+    font-size: 50px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+p{
+    text-align: center;
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+
+.att{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+
+}
+.bar {
+    fill: #fbef91;
+    border-color: black;
+}
+.bar:hover {
+    fill: rgb(238, 192, 128);
+    transition: background-color 0.25s;
+}
+.axis {
+    font-size: 30px;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+  
+#chart-container {
+    display: flex;
+    justify-content: center;
+}
+
+.b {
+    margin-top: 20px;
+    margin-right: 10px;
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    margin-left: 760px;
+    width: 100px;
+    height: 40px ;
+    align-items: center;
+    border-radius: 0.5pc;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(186, 112, 112, 0.668);
+    color: rgb(255, 255, 255,0.7);
+    cursor: pointer;
+    border: none;
+    filter: alpha(opacity=500);
+}
+
+.b:hover{
+    background-color: rgba(198, 86, 86, 0.668);
+    transition: background-color 0.25s;
+}
+
+.b:active{
+    background-color: rgba(198, 71, 71, 0.668);
+    transition: background-color 0.25s;
+}
+
+.n { 
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    width: 100px;
+    height: 40px ;
+    align-items: center;
+    border-radius: 0.5pc;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(112, 186, 160, 0.668);
+    color: rgb(255, 255, 255,0.7);
+    cursor: pointer;
+    border: none;
+    filter: alpha(opacity=500);
+}
+
+.n:hover{
+    background-color:  rgba(78, 159, 131, 0.668);
+    transition: background-color 0.25s;
+}
+
+.n:active{
+    background-color: rgba(91, 169, 142, 0.668);
+    transition: background-color 0.25s;
+}
