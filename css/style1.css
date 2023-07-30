@@ -15,8 +15,8 @@ h1{
     text-align: center;
     color: white;
     font-size: 50px;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 h3{
@@ -33,7 +33,7 @@ p{
     text-align: center;
     margin-bottom: 20px;
     font-size: 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
 }
 
@@ -45,8 +45,7 @@ p{
     width: 400px;
     height: 40px ;
     border-radius: 0.5pc;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: rgb(209, 146, 146, 0.668);
     color: aliceblue;
     cursor: pointer;

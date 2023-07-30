@@ -5,8 +5,8 @@ html{
 h1{
     text-align: center;
     font-size: 50px;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 
 
@@ -16,7 +16,8 @@ p{
     text-align: center;
     margin-bottom: 20px;
     font-size: 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
 svg{
@@ -28,7 +29,7 @@ svg{
     padding: 10px;
     background-color: rgb(253, 253, 253);
     border: 1px solid #e8baba;
-    font-family: 'Inter', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     border-radius: 5px;
 }
 
@@ -36,15 +37,13 @@ svg{
     margin-top: 20px;
     margin-right: 10px;
     font-size: medium;
-    font-family: 'Inter', sans-serif;
     text-align: center;
     margin-left: 770px;
     width: 100px;
     height: 40px ;
     align-items: center;
     border-radius: 0.5pc;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: rgba(186, 112, 112, 0.668);
     color: rgb(255, 255, 255,0.7);
     cursor: pointer;
@@ -64,14 +63,12 @@ svg{
 
 .n { 
     font-size: medium;
-    font-family: 'Inter', sans-serif;
     text-align: center;
     width: 100px;
     height: 40px ;
     align-items: center;
     border-radius: 0.5pc;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: rgba(112, 186, 160, 0.668);
     color: rgb(255, 255, 255,0.7);
     cursor: pointer;
