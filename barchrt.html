@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/style3.css">
 </head>
 <body>
-  <!-- Container to center the chart -->
   <h1>Interactive Barchart</h1>
   <p>To provide a deeper insight into the data, you can now select between the given attributes (number of engine cylinders, average city </br> 
     miles per gallon (MPG),and average highway miles per gallon (MPG))</p>
@@ -21,7 +20,6 @@
   </div>
 
   <div id="chart-container">
-    <!-- SVG container for the bar chart -->
     <svg id="barchart" width="800" height="500"></svg>
   </div>
 
@@ -44,45 +42,41 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script>
     async function loadDataAndCreateBarChart() {
-      // Get Data
       const data = await d3.csv('https://flunky.github.io/cars2017.csv');
 
-      // Define the initial attribute to display
+     
       let selectedAttribute = "EngineCylinders";
-
-      // Set the chart dimensions and margin
       const margin = { top: 50, right: 20, bottom: 50, left: 70 };
       const width = 800 - margin.left - margin.right;
       const height = 500 - margin.top - margin.bottom;
 
-      // Create the SVG element with margin
       const svg = d3.select("#barchart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-      // Initial chart creation
+
       updateChart(selectedAttribute);
 
-      // Add event listener to the dropdown to update the chart
+
       document.getElementById("attribute-select").addEventListener("change", function() {
         selectedAttribute = this.value;
         updateChart(selectedAttribute);
       });
 
       function updateChart(attribute) {
-        // Group the data by "Make" and calculate the mean of the selected attribute for each group
+        
         const makeAttributeData = d3.rollups(
           data,
-          v => d3.mean(v, d => +d[attribute]), // Convert the attribute values to numbers
+          v => d3.mean(v, d => +d[attribute]), 
           d => d.Make
         );
 
-        // Sort the data by the mean value in descending order
+        
         makeAttributeData.sort((a, b) => b[1] - a[1]);
 
-        // Create the scales for x and y axes
+        
         const xScale = d3.scaleBand()
           .domain(makeAttributeData.map(d => d[0]))
           .range([0, width])
@@ -92,7 +86,7 @@
           .domain([0, d3.max(makeAttributeData, d => d[1])])
           .range([height, 0]);
 
-        // Transitions for bars
+        
         svg.selectAll(".bar")
           .data(makeAttributeData, d => d[0])
           .transition()
@@ -102,10 +96,10 @@
           .attr("width", xScale.bandwidth())
           .attr("height", d => height - yScale(d[1]));
 
-        // Remove previous bars
+        
         svg.selectAll(".bar").remove();
 
-        // Create new bars with updated data
+        
         svg.selectAll(".bar")
           .data(makeAttributeData, d => d[0])
           .enter()
@@ -123,10 +117,10 @@
             d3.select(this).attr("fill", "steelblue");
           });
 
-        // Remove previous x-axis
+       
         svg.select(".x-axis").remove();
 
-        // Create x-axis with updated data
+        
         svg.append("g")
           .attr("class", "x-axis")
           .attr("transform", `translate(0, ${height})`)
@@ -139,10 +133,10 @@
           .duration(1000)
           .attr("opacity", 1);
 
-        // Remove previous y-axis
+       
         svg.select(".y-axis").remove();
 
-        // Create y-axis with updated data
+        
         svg.append("g")
           .attr("class", "y-axis")
           .call(d3.axisLeft(yScale))
@@ -154,7 +148,7 @@
       }
     }
 
-    // Load data and create the initial Bar Chart with dropdown
+   
     loadDataAndCreateBarChart();
   </script>
 </body>

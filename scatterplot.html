@@ -5,17 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>D3.js Interactive Visualization</title>
   <link rel="stylesheet" href="css/style2.css">
-  <style>
-    /* Add your CSS styles here */
-    .tooltip {
-      position: absolute;
-      padding: 10px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      pointer-events: none;
-    }
-  </style>
 </head>
 <body>
   <h1>Overview of fuel Efficiency among various car brands</h1>
@@ -39,7 +28,7 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script>
     async function loadDataAndCreateVisualization() {
-      // Get Data
+      
       const data = await d3.csv('https://flunky.github.io/cars2017.csv');
 
       const margin = { top: 50, right: 50, bottom: 70, left: 70 };
@@ -132,8 +121,6 @@
         .style("text-anchor", "middle")
         .text("Average City MPG");
     }
-
-    // Load data and create the visualization
     loadDataAndCreateVisualization();
   </script>
   
